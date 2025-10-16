@@ -6,13 +6,13 @@
     "url": "https://github.com/adnankurt16/arc-devtools-mcp",
     "source": "github"
   },
-  "version": "0.8.1",
+  "version": "0.8.2",
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "arc-devtools-mcp",
-      "version": "0.8.1",
+      "version": "0.8.2",
       "transport": {
         "type": "stdio"
       },

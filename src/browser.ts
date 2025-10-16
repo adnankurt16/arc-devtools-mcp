@@ -8,12 +8,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-import type {
-  Browser,
-  ChromeReleaseChannel,
-  LaunchOptions,
-  Target,
-} from 'puppeteer-core';
+import type {Browser, LaunchOptions, Target} from 'puppeteer-core';
 import puppeteer from 'puppeteer-core';
 
 let browser: Browser | undefined;
@@ -98,22 +93,44 @@ export async function launch(options: McpLaunchOptions): Promise<Browser> {
   if (headless) {
     args.push('--screen-info={3840x2160}');
   }
-  let puppeteerChannel: ChromeReleaseChannel | undefined;
   if (options.devtools) {
     args.push('--auto-open-devtools-for-tabs');
   }
-  if (!executablePath) {
-    puppeteerChannel =
-      channel && channel !== 'stable'
-        ? (`chrome-${channel}` as ChromeReleaseChannel)
-        : 'chrome';
+
+  // Default to Arc browser if no executable path specified
+  let actualExecutablePath = executablePath;
+  if (!actualExecutablePath) {
+    const platform = os.platform();
+    switch (platform) {
+      case 'darwin':
+        actualExecutablePath = '/Applications/Arc.app/Contents/MacOS/Arc';
+        break;
+      case 'win32':
+        // Arc for Windows - update path when officially released
+        actualExecutablePath = path.join(
+          os.homedir(),
+          'AppData',
+          'Local',
+          'Arc',
+          'Application',
+          'Arc.exe',
+        );
+        break;
+      case 'linux':
+        // Arc for Linux - update path when officially released
+        actualExecutablePath = '/opt/Arc/arc';
+        break;
+      default:
+        throw new Error(
+          `Unsupported platform: ${platform}. Please specify executablePath manually.`,
+        );
+    }
   }
 
   try {
     const browser = await puppeteer.launch({
-      channel: puppeteerChannel,
       targetFilter: makeTargetFilter(options.devtools),
-      executablePath,
+      executablePath: actualExecutablePath,
       defaultViewport: null,
       userDataDir,
       pipe: true,
