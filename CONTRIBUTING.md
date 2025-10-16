@@ -4,24 +4,13 @@ We'd love to accept your patches and contributions to this project.
 
 ## Before you begin
 
-### Sign our Contributor License Agreement
-
-Contributions to this project must be accompanied by a
-[Contributor License Agreement](https://cla.developers.google.com/about) (CLA).
-You (or your employer) retain the copyright to your contribution; this simply
-gives us permission to use and redistribute your contributions as part of the
-project.
-
-If you or your current employer have already signed the Google CLA (even if it
-was for a different project), you probably don't need to do it again.
-
-Visit <https://cla.developers.google.com/> to see your current agreements or to
-sign a new one.
+This project is a fork of [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)
+adapted for Arc browser. Contributions should focus on Arc-specific features and improvements.
 
 ### Review our community guidelines
 
-This project follows
-[Google's Open Source Community Guidelines](https://opensource.google/conduct/).
+Please be respectful and constructive in all interactions. Follow standard
+open source etiquette and best practices.
 
 ## Contribution process
 
@@ -42,8 +31,8 @@ for PR and commit titles.
 Check that you are using node version specified in .nvmrc, then run following commands:
 
 ```sh
-git clone https://github.com/ChromeDevTools/chrome-devtools-mcp.git
-cd chrome-devtools-mcp
+git clone https://github.com/adnankurt16/arc-devtools-mcp.git
+cd arc-devtools-mcp
 npm ci
 npm run build
 ```
@@ -61,7 +50,7 @@ Add the MCP server to your client's config.
 ```json
 {
   "mcpServers": {
-    "chrome-devtools": {
+    "arc-devtools": {
       "command": "node",
       "args": ["/path-to/build/src/index.js"]
     }
@@ -87,3 +76,8 @@ You can use the `DEBUG` environment variable as usual to control categories that
 ### Updating documentation
 
 When adding a new tool or updating a tool name or description, make sure to run `npm run docs` to generate the tool reference documentation.
+
+## Testing with Arc Browser
+
+Make sure you have Arc installed on macOS before testing. The server will attempt
+to locate Arc at `/Applications/Arc.app/Contents/MacOS/Arc` by default.

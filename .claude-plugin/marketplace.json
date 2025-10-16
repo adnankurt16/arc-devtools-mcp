@@ -1,19 +1,19 @@
 {
-  "name": "chrome-devtools-plugins",
+  "name": "arc-devtools-plugins",
   "version": "1.0.0",
-  "description": "Bundled plugins for actuating and debugging the Chrome browser.",
+  "description": "Bundled plugins for actuating and debugging the Arc browser.",
   "owner": {
-    "name": "Chrome DevTools Team",
-    "email": "devtools-dev@chromium.org"
+    "name": "Adnan Kurt",
+    "email": "adnankurt16@users.noreply.github.com"
   },
   "plugins": [
     {
-      "name": "chrome-devtools-mcp",
+      "name": "arc-devtools-mcp",
       "source": {
         "source": "github",
-        "repo": "ChromeDevTools/chrome-devtools-mcp"
+        "repo": "adnankurt16/arc-devtools-mcp"
       },
-      "description": "Reliable automation, in-depth debugging, and performance analysis in Chrome using Chrome DevTools and Puppeteer"
+      "description": "Reliable automation, in-depth debugging, and performance analysis in Arc browser using Chrome DevTools and Puppeteer"
     }
   ]
 }

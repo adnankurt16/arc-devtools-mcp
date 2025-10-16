@@ -38,11 +38,11 @@ export const args = parseArguments(VERSION);
 
 const logFile = args.logFile ? saveLogsToFile(args.logFile) : undefined;
 
-logger(`Starting Chrome DevTools MCP Server v${VERSION}`);
+logger(`Starting Arc DevTools MCP Server v${VERSION}`);
 const server = new McpServer(
   {
-    name: 'chrome_devtools',
-    title: 'Chrome DevTools MCP server',
+    name: 'arc_devtools',
+    title: 'Arc DevTools MCP server',
     version: VERSION,
   },
   {capabilities: {logging: {}}},

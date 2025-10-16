@@ -1,5 +1,5 @@
 name: Bug report
-description: File a bug report for chrome-devtools-mcp
+description: File a bug report for arc-devtools-mcp
 title: '<short description of the bug>'
 type: 'Bug'
 body:
@@ -41,10 +41,10 @@ body:
       description: >
         Please verify you have the minimal supported version listed in the README.md
 
-  - id: chrome-version
+  - id: arc-version
     type: input
     attributes:
-      label: Chrome version
+      label: Arc browser version
 
   - id: coding-agent-version
     type: input

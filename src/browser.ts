@@ -76,16 +76,14 @@ interface McpLaunchOptions {
 export async function launch(options: McpLaunchOptions): Promise<Browser> {
   const {channel, executablePath, headless, isolated} = options;
   const profileDirName =
-    channel && channel !== 'stable'
-      ? `chrome-profile-${channel}`
-      : 'chrome-profile';
+    channel && channel !== 'stable' ? `arc-profile-${channel}` : 'arc-profile';
 
   let userDataDir = options.userDataDir;
   if (!isolated && !userDataDir) {
     userDataDir = path.join(
       os.homedir(),
       '.cache',
-      'chrome-devtools-mcp',
+      'arc-devtools-mcp',
       profileDirName,
     );
     await fs.promises.mkdir(userDataDir, {

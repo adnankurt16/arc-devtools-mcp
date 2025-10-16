@@ -1,11 +1,14 @@
-# Chrome DevTools MCP
+# Arc DevTools MCP
 
-[![npm chrome-devtools-mcp package](https://img.shields.io/npm/v/chrome-devtools-mcp.svg)](https://npmjs.org/package/chrome-devtools-mcp)
+[![npm arc-devtools-mcp package](https://img.shields.io/npm/v/arc-devtools-mcp.svg)](https://npmjs.org/package/arc-devtools-mcp)
 
-`chrome-devtools-mcp` lets your coding agent (such as Gemini, Claude, Cursor or Copilot)
-control and inspect a live Chrome browser. It acts as a Model-Context-Protocol
+`arc-devtools-mcp` lets your coding agent (such as Gemini, Claude, Cursor or Copilot)
+control and inspect a live Arc browser. It acts as a Model-Context-Protocol
 (MCP) server, giving your AI coding assistant access to the full power of
-Chrome DevTools for reliable automation, in-depth debugging, and performance analysis.
+DevTools for reliable automation, in-depth debugging, and performance analysis.
+
+Arc browser is built on Chromium, so this server leverages all the power of Chrome DevTools
+while providing a native Arc experience.
 
 ## [Tool reference](./docs/tool-reference.md) | [Changelog](./CHANGELOG.md) | [Contributing](./CONTRIBUTING.md) | [Troubleshooting](./docs/troubleshooting.md)
 
@@ -18,11 +21,11 @@ Chrome DevTools for reliable automation, in-depth debugging, and performance ana
   check the browser console.
 - **Reliable automation**. Uses
   [puppeteer](https://github.com/puppeteer/puppeteer) to automate actions in
-  Chrome and automatically wait for action results.
+  Arc and automatically wait for action results.
 
 ## Disclaimers
 
-`chrome-devtools-mcp` exposes content of the browser instance to the MCP clients
+`arc-devtools-mcp` exposes content of the browser instance to the MCP clients
 allowing them to inspect, debug, and modify any data in the browser or DevTools.
 Avoid sharing sensitive or personal information that you don't want to share with
 MCP clients.
@@ -30,7 +33,7 @@ MCP clients.
 ## Requirements
 
 - [Node.js](https://nodejs.org/) v20.19 or a newer [latest maintenance LTS](https://github.com/nodejs/Release#release-schedule) version.
-- [Chrome](https://www.google.com/chrome/) current stable version or newer.
+- [Arc browser](https://arc.net/) current version.
 - [npm](https://www.npmjs.com/).
 
 ## Getting started
@@ -40,35 +43,35 @@ Add the following config to your MCP client:
 ```json
 {
   "mcpServers": {
-    "chrome-devtools": {
+    "arc-devtools": {
       "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
+      "args": ["-y", "arc-devtools-mcp@latest"]
     }
   }
 }
 ```
 
-> [!NOTE]  
-> Using `chrome-devtools-mcp@latest` ensures that your MCP client will always use the latest version of the Chrome DevTools MCP server.
+> [!NOTE]
+> Using `arc-devtools-mcp@latest` ensures that your MCP client will always use the latest version of the Arc DevTools MCP server.
 
 ### MCP Client configuration
 
 <details>
   <summary>Amp</summary>
-  Follow https://ampcode.com/manual#mcp and use the config provided above. You can also install the Chrome DevTools MCP server using the CLI:
+  Follow https://ampcode.com/manual#mcp and use the config provided above. You can also install the Arc DevTools MCP server using the CLI:
 
 ```bash
-amp mcp add chrome-devtools -- npx chrome-devtools-mcp@latest
+amp mcp add arc-devtools -- npx arc-devtools-mcp@latest
 ```
 
 </details>
 
 <details>
   <summary>Claude Code</summary>
-    Use the Claude Code CLI to add the Chrome DevTools MCP server (<a href="https://docs.anthropic.com/en/docs/claude-code/mcp">guide</a>):
+    Use the Claude Code CLI to add the Arc DevTools MCP server (<a href="https://docs.anthropic.com/en/docs/claude-code/mcp">guide</a>):
 
 ```bash
-claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
+claude mcp add arc-devtools npx arc-devtools-mcp@latest
 ```
 
 </details>
@@ -81,26 +84,25 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 <details>
   <summary>Codex</summary>
   Follow the <a href="https://github.com/openai/codex/blob/main/docs/advanced.md#model-context-protocol-mcp">configure MCP guide</a>
-  using the standard config from above. You can also install the Chrome DevTools MCP server using the Codex CLI:
+  using the standard config from above. You can also install the Arc DevTools MCP server using the Codex CLI:
 
 ```bash
-codex mcp add chrome-devtools -- npx chrome-devtools-mcp@latest
+codex mcp add arc-devtools -- npx arc-devtools-mcp@latest
 ```
 
 **On Windows 11**
 
-Configure the Chrome install location and increase the startup timeout by updating `.codex/config.toml` and adding the following `env` and `startup_timeout_ms` parameters:
+Arc is currently macOS-only. When Arc becomes available on Windows, configure as follows:
 
 ```
-[mcp_servers.chrome-devtools]
+[mcp_servers.arc-devtools]
 command = "cmd"
 args = [
     "/c",
     "npx",
     "-y",
-    "chrome-devtools-mcp@latest",
+    "arc-devtools-mcp@latest",
 ]
-env = { SystemRoot="C:\\Windows", PROGRAMFILES="C:\\Program Files" }
 startup_timeout_ms = 20_000
 ```
 
@@ -123,29 +125,26 @@ Start the dialog to add a new MCP server by running:
 
 Configure the following fields and press `CTRL+S` to save the configuration:
 
-- **Server name:** `chrome-devtools`
+- **Server name:** `arc-devtools`
 - **Server Type:** `[1] Local`
 - **Command:** `npx`
-- **Arguments:** `-y, chrome-devtools-mcp@latest`
+- **Arguments:** `-y, arc-devtools-mcp@latest`
 
 </details>
 
 <details>
   <summary>Copilot / VS Code</summary>
   Follow the MCP install <a href="https://code.visualstudio.com/docs/copilot/chat/mcp-servers#_add-an-mcp-server">guide</a>,
-  with the standard config from above. You can also install the Chrome DevTools MCP server using the VS Code CLI:
-  
-  ```bash
-  code --add-mcp '{"name":"chrome-devtools","command":"npx","args":["chrome-devtools-mcp@latest"]}'
-  ```
+  with the standard config from above. You can also install the Arc DevTools MCP server using the VS Code CLI:
+
+```bash
+code --add-mcp '{"name":"arc-devtools","command":"npx","args":["arc-devtools-mcp@latest"]}'
+```
+
 </details>
 
 <details>
   <summary>Cursor</summary>
-
-**Click the button to install:**
-
-[<img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor">](https://cursor.com/en/install-mcp?name=chrome-devtools&config=eyJjb21tYW5kIjoibnB4IC15IGNocm9tZS1kZXZ0b29scy1tY3BAbGF0ZXN0In0%3D)
 
 **Or install manually:**
 
@@ -155,18 +154,18 @@ Go to `Cursor Settings` -> `MCP` -> `New MCP Server`. Use the config provided ab
 
 <details>
   <summary>Gemini CLI</summary>
-Install the Chrome DevTools MCP server using the Gemini CLI.
+Install the Arc DevTools MCP server using the Gemini CLI.
 
 **Project wide:**
 
 ```bash
-gemini mcp add chrome-devtools npx chrome-devtools-mcp@latest
+gemini mcp add arc-devtools npx arc-devtools-mcp@latest
 ```
 
 **Globally:**
 
 ```bash
-gemini mcp add -s user chrome-devtools npx chrome-devtools-mcp@latest
+gemini mcp add -s user arc-devtools npx arc-devtools-mcp@latest
 ```
 
 Alternatively, follow the <a href="https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md#how-to-set-up-your-mcp-server">MCP guide</a> and use the standard config from above.
@@ -183,7 +182,7 @@ Alternatively, follow the <a href="https://github.com/google-gemini/gemini-cli/b
   <summary>JetBrains AI Assistant & Junie</summary>
 
 Go to `Settings | Tools | AI Assistant | Model Context Protocol (MCP)` -> `Add`. Use the config provided above.
-The same way chrome-devtools-mcp can be configured for JetBrains Junie in `Settings | Tools | Junie | MCP Settings` -> `Add`. Use the config provided above.
+The same way arc-devtools-mcp can be configured for JetBrains Junie in `Settings | Tools | Junie | MCP Settings` -> `Add`. Use the config provided above.
 
 </details>
 
@@ -207,10 +206,11 @@ Alternatively, follow the <a href="https://docs.qoder.com/user-guide/chat/model-
 
 <details>
   <summary>Visual Studio</summary>
-  
-  **Click the button to install:**
-  
-  [<img src="https://img.shields.io/badge/Visual_Studio-Install-C16FDE?logo=visualstudio&logoColor=white" alt="Install in Visual Studio">](https://vs-open.link/mcp-install?%7B%22name%22%3A%22chrome-devtools%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22chrome-devtools-mcp%40latest%22%5D%7D)
+
+**Click the button to install:**
+
+[<img src="https://img.shields.io/badge/Visual_Studio-Install-C16FDE?logo=visualstudio&logoColor=white" alt="Install in Visual Studio">](https://vs-open.link/mcp-install?%7B%22name%22%3A%22arc-devtools%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22arc-devtools-mcp%40latest%22%5D%7D)
+
 </details>
 
 <details>
@@ -228,10 +228,10 @@ Enter the following prompt in your MCP Client to check if everything is working:
 Check the performance of https://developers.chrome.com
 ```
 
-Your MCP client should open the browser and record a performance trace.
+Your MCP client should open the Arc browser and record a performance trace.
 
-> [!NOTE]  
-> The MCP server will start the browser automatically once the MCP client uses a tool that requires a running browser instance. Connecting to the Chrome DevTools MCP server on its own will not automatically start the browser.
+> [!NOTE]
+> The MCP server will start the browser automatically once the MCP client uses a tool that requires a running browser instance. Connecting to the Arc DevTools MCP server on its own will not automatically start the browser.
 
 ## Tools
 
@@ -276,12 +276,12 @@ If you run into any issues, checkout our [troubleshooting guide](./docs/troubles
 
 ## Configuration
 
-The Chrome DevTools MCP server supports the following configuration option:
+The Arc DevTools MCP server supports the following configuration options:
 
 <!-- BEGIN AUTO GENERATED OPTIONS -->
 
 - **`--browserUrl`, `-u`**
-  Connect to a running Chrome instance using port forwarding. For more details see: https://developer.chrome.com/docs/devtools/remote-debugging/local-server.
+  Connect to a running Arc browser instance using port forwarding. Arc uses Chromium remote debugging protocol.
   - **Type:** string
 
 - **`--headless`**
@@ -290,7 +290,7 @@ The Chrome DevTools MCP server supports the following configuration option:
   - **Default:** `false`
 
 - **`--executablePath`, `-e`**
-  Path to custom Chrome executable.
+  Path to Arc executable. Default: /Applications/Arc.app/Contents/MacOS/Arc
   - **Type:** string
 
 - **`--isolated`**
@@ -299,7 +299,7 @@ The Chrome DevTools MCP server supports the following configuration option:
   - **Default:** `false`
 
 - **`--channel`**
-  Specify a different Chrome channel that should be used. The default is the stable channel version.
+  Browser channel to use (Arc only has stable channel, kept for compatibility).
   - **Type:** string
   - **Choices:** `stable`, `canary`, `beta`, `dev`
 
@@ -308,11 +308,11 @@ The Chrome DevTools MCP server supports the following configuration option:
   - **Type:** string
 
 - **`--viewport`**
-  Initial viewport size for the Chrome instances started by the server. For example, `1280x720`. In headless mode, max size is 3840x2160px.
+  Initial viewport size for the Arc instances started by the server. For example, `1280x720`. In headless mode, max size is 3840x2160px.
   - **Type:** string
 
 - **`--proxyServer`**
-  Proxy server configuration for Chrome passed as --proxy-server when launching the browser. See https://www.chromium.org/developers/design-documents/network-settings/ for details.
+  Proxy server configuration for Arc passed as --proxy-server when launching the browser. See https://www.chromium.org/developers/design-documents/network-settings/ for details.
   - **Type:** string
 
 - **`--acceptInsecureCerts`**
@@ -320,7 +320,7 @@ The Chrome DevTools MCP server supports the following configuration option:
   - **Type:** boolean
 
 - **`--chromeArg`**
-  Additional arguments for Chrome. Only applies when Chrome is launched by chrome-devtools-mcp.
+  Additional arguments for Arc. Only applies when Arc is launched by arc-devtools-mcp.
   - **Type:** array
 
 <!-- END AUTO GENERATED OPTIONS -->
@@ -330,11 +330,11 @@ Pass them via the `args` property in the JSON configuration. For example:
 ```json
 {
   "mcpServers": {
-    "chrome-devtools": {
+    "arc-devtools": {
       "command": "npx",
       "args": [
-        "chrome-devtools-mcp@latest",
-        "--channel=canary",
+        "arc-devtools-mcp@latest",
+        "--channel=stable",
         "--headless=true",
         "--isolated=true"
       ]
@@ -343,93 +343,81 @@ Pass them via the `args` property in the JSON configuration. For example:
 }
 ```
 
-You can also run `npx chrome-devtools-mcp@latest --help` to see all available configuration options.
+You can also run `npx arc-devtools-mcp@latest --help` to see all available configuration options.
 
 ## Concepts
 
 ### User data directory
 
-`chrome-devtools-mcp` starts a Chrome's stable channel instance using the following user
+`arc-devtools-mcp` starts an Arc browser instance using the following user
 data directory:
 
-- Linux / macOS: `$HOME/.cache/chrome-devtools-mcp/chrome-profile-$CHANNEL`
-- Windows: `%HOMEPATH%/.cache/chrome-devtools-mcp/chrome-profile-$CHANNEL`
+- macOS: `$HOME/.cache/arc-devtools-mcp/arc-profile`
+- Windows: Coming soon (Arc is currently macOS-only)
+- Linux: Not available (Arc is currently macOS-only)
 
 The user data directory is not cleared between runs and shared across
-all instances of `chrome-devtools-mcp`. Set the `isolated` option to `true`
+all instances of `arc-devtools-mcp`. Set the `isolated` option to `true`
 to use a temporary user data dir instead which will be cleared automatically after
 the browser is closed.
 
-### Connecting to a running Chrome instance
+### Connecting to a running Arc instance
 
-You can connect to a running Chrome instance by using the `--browser-url` option. This is useful if you want to use your existing Chrome profile or if you are running the MCP server in a sandboxed environment that does not allow starting a new Chrome instance.
+You can connect to a running Arc instance by using the `--browser-url` option. This is useful if you want to use your existing Arc profile or if you are running the MCP server in a sandboxed environment that does not allow starting a new Arc instance.
 
-Here is a step-by-step guide on how to connect to a running Chrome Stable instance:
+Here is a step-by-step guide on how to connect to a running Arc instance:
 
 **Step 1: Configure the MCP client**
 
-Add the `--browser-url` option to your MCP client configuration. The value of this option should be the URL of the running Chrome instance. `http://127.0.0.1:9222` is a common default.
+Add the `--browser-url` option to your MCP client configuration. The value of this option should be the URL of the running Arc instance. `http://127.0.0.1:9222` is a common default.
 
 ```json
 {
   "mcpServers": {
-    "chrome-devtools": {
+    "arc-devtools": {
       "command": "npx",
-      "args": [
-        "chrome-devtools-mcp@latest",
-        "--browser-url=http://127.0.0.1:9222"
-      ]
+      "args": ["arc-devtools-mcp@latest", "--browser-url=http://127.0.0.1:9222"]
     }
   }
 }
 ```
 
-**Step 2: Start the Chrome browser**
+**Step 2: Start Arc with remote debugging**
 
-> [!WARNING]  
+> [!WARNING]
 > Enabling the remote debugging port opens up a debugging port on the running browser instance. Any application on your machine can connect to this port and control the browser. Make sure that you are not browsing any sensitive websites while the debugging port is open.
 
-Start the Chrome browser with the remote debugging port enabled. Make sure to close any running Chrome instances before starting a new one with the debugging port enabled. The port number you choose must be the same as the one you specified in the `--browser-url` option in your MCP client configuration.
+Start Arc with the remote debugging port enabled. Make sure to close any running Arc instances before starting a new one with the debugging port enabled. The port number you choose must be the same as the one you specified in the `--browser-url` option in your MCP client configuration.
 
-For security reasons, [Chrome requires you to use a non-default user data directory](https://developer.chrome.com/blog/remote-debugging-port) when enabling the remote debugging port. You can specify a custom directory using the `--user-data-dir` flag. This ensures that your regular browsing profile and data are not exposed to the debugging session.
+For security reasons, you need to use a non-default user data directory when enabling the remote debugging port. You can specify a custom directory using the `--user-data-dir` flag. This ensures that your regular browsing profile and data are not exposed to the debugging session.
 
 **macOS**
 
 ```bash
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-profile-stable
-```
-
-**Linux**
-
-```bash
-/usr/bin/google-chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-profile-stable
-```
-
-**Windows**
-
-```bash
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="%TEMP%\chrome-profile-stable"
+/Applications/Arc.app/Contents/MacOS/Arc --remote-debugging-port=9222 --user-data-dir=/tmp/arc-profile-debug
 ```
 
 **Step 3: Test your setup**
 
-After configuring the MCP client and starting the Chrome browser, you can test your setup by running a simple prompt in your MCP client:
+After configuring the MCP client and starting Arc with debugging enabled, you can test your setup by running a simple prompt in your MCP client:
 
 ```
 Check the performance of https://developers.chrome.com
 ```
 
-Your MCP client should connect to the running Chrome instance and receive a performance report.
-
-For more details on remote debugging, see the [Chrome DevTools documentation](https://developer.chrome.com/docs/devtools/remote-debugging/).
+Your MCP client should connect to the running Arc instance and receive a performance report.
 
 ## Known limitations
 
 ### Operating system sandboxes
 
 Some MCP clients allow sandboxing the MCP server using macOS Seatbelt or Linux
-containers. If sandboxes are enabled, `chrome-devtools-mcp` is not able to start
-Chrome that requires permissions to create its own sandboxes. As a workaround,
-either disable sandboxing for `chrome-devtools-mcp` in your MCP client or use
-`--browser-url` to connect to a Chrome instance that you start manually outside
+containers. If sandboxes are enabled, `arc-devtools-mcp` is not able to start
+Arc that requires permissions to create its own sandboxes. As a workaround,
+either disable sandboxing for `arc-devtools-mcp` in your MCP client or use
+`--browser-url` to connect to an Arc instance that you start manually outside
 of the MCP client sandbox.
+
+### Platform availability
+
+Arc browser is currently only available on macOS. Windows and Linux support is planned by the Arc team but not yet available.

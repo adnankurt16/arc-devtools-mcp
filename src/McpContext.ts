@@ -358,9 +358,7 @@ export class McpContext implements Context {
     mimeType: 'image/png' | 'image/jpeg' | 'image/webp',
   ): Promise<{filename: string}> {
     try {
-      const dir = await fs.mkdtemp(
-        path.join(os.tmpdir(), 'chrome-devtools-mcp-'),
-      );
+      const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arc-devtools-mcp-'));
 
       const filename = path.join(
         dir,

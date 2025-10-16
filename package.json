@@ -1,7 +1,7 @@
 {
-  "name": "chrome-devtools-mcp",
+  "name": "arc-devtools-mcp",
   "version": "0.8.1",
-  "description": "MCP server for Chrome DevTools",
+  "description": "MCP server for Arc Browser DevTools",
   "type": "module",
   "bin": "./build/src/index.js",
   "main": "index.js",
@@ -28,14 +28,14 @@
     "LICENSE",
     "!*.tsbuildinfo"
   ],
-  "repository": "ChromeDevTools/chrome-devtools-mcp",
-  "author": "Google LLC",
+  "repository": "adnankurt16/arc-devtools-mcp",
+  "author": "Adnan Kurt",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/issues"
+    "url": "https://github.com/adnankurt16/arc-devtools-mcp/issues"
   },
-  "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp#readme",
-  "mcpName": "io.github.ChromeDevTools/chrome-devtools-mcp",
+  "homepage": "https://github.com/adnankurt16/arc-devtools-mcp#readme",
+  "mcpName": "io.github.adnankurt16/arc-devtools-mcp",
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.20.0",
     "core-js": "3.46.0",
