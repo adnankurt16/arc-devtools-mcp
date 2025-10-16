@@ -3,7 +3,9 @@
   "version": "0.8.1",
   "description": "MCP server for Arc Browser DevTools",
   "type": "module",
-  "bin": "./build/src/index.js",
+  "bin": {
+    "arc-devtools-mcp": "build/src/index.js"
+  },
   "main": "index.js",
   "scripts": {
     "build": "tsc && node --experimental-strip-types --no-warnings=ExperimentalWarning scripts/post-build.ts",
@@ -28,7 +30,10 @@
     "LICENSE",
     "!*.tsbuildinfo"
   ],
-  "repository": "adnankurt16/arc-devtools-mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adnankurt16/arc-devtools-mcp.git"
+  },
   "author": "Adnan Kurt",
   "license": "Apache-2.0",
   "bugs": {
